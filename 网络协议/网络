@@ -1,19 +1,19 @@
 ## 物理传输：
 
-- 简单传输：高电平代表1，低电平代表0（可能存在干扰，不适合远距离传输）![image-20261015093637228](C:\Users\dh\AppData\Roaming\Typora\typora-user-images\image-20261015093637228.png)![image-20261015093657703](C:\Users\dh\AppData\Roaming\Typora\typora-user-images\image-20261015093657703.png)
+- 简单传输：高电平代表1，低电平代表0（可能存在干扰，不适合远距离传输）![image-20261015093637228](..\Images\image-20261015093637228.png)![image-20261015093657703](..\Images\image-20261015093657703.png)
 - 差分传输：
   - 利用两根导线的电压差来实现的（同时受到干扰，不影响电压差，提高了抗干扰能力，从而延长了传输距离）
-  - 一对双绞线传输（只能半双工通讯）![image-20261015093830625](C:\Users\dh\AppData\Roaming\Typora\typora-user-images\image-20261015093830625.png)![image-20261015093857974](C:\Users\dh\AppData\Roaming\Typora\typora-user-images\image-20261015093857974.png)
-  - 在一对双绞线的基础上再加一对双绞线（全双工通讯）![image-20261015094352770](C:\Users\dh\AppData\Roaming\Typora\typora-user-images\image-20261015094352770.png)
-- 网线：一般有四对双绞线![image-20261015094440823](C:\Users\dh\AppData\Roaming\Typora\typora-user-images\image-20261015094440823.png)
+  - 一对双绞线传输（只能半双工通讯）![image-20261015093830625](..\Images\image-20261015093830625.png)![image-20261015093857974](..\Images\image-20261015093857974.png)
+  - 在一对双绞线的基础上再加一对双绞线（全双工通讯）![image-20261015094352770](..\Images\image-20261015094352770.png)
+- 网线：一般有四对双绞线![image-20261015094440823](..\Images\image-20261015094440823.png)
   - 百兆及以下的网线在数据传输时只需要用到两对双绞线，一对用于发送（Tx+、Tx-），一对用于接收（Rx+、Rx-），其他两队用作备用或者语音通话、Poe供电
   - 千兆网线四对线都需要参与数据传输
 
 ## 数据传输：
 
-![image-20261015095210642](C:\Users\dh\AppData\Roaming\Typora\typora-user-images\image-20261015095210642.png)
+![image-20261015095210642](..\Images\image-20261015095210642.png)
 
-![image-20261015093139129](C:\Users\dh\AppData\Roaming\Typora\typora-user-images\image-20261015093139129.png)
+![image-20261015093139129](..\Images\image-20261015093139129.png)
 
 - 数据链路层的主要协议：以太网协议、PPP协议等；
 
@@ -25,7 +25,7 @@
 
 ## 体系结构：
 
-OIS体系结构【应用层、表示层、会话层】=> 五层体系结构【应用层】【传输层】【网络层】![image-20261015095740515](C:\Users\dh\AppData\Roaming\Typora\typora-user-images\image-20261015095740515.png)
+OIS体系结构【应用层、表示层、会话层】=> 五层体系结构【应用层】【传输层】【网络层】![image-20261015095740515](..\Images\image-20261015095740515.png)
 
 ### TCP/IP协议
 
@@ -34,11 +34,11 @@ OIS体系结构【应用层、表示层、会话层】=> 五层体系结构【�
 - 传输层：端口进程、进程到进程之间的通信
 - 应用层：用户和用户之间的通信
 
-![image-20261015100221444](C:\Users\dh\AppData\Roaming\Typora\typora-user-images\image-20261015100221444.png)
+![image-20261015100221444](..\Images\image-20261015100221444.png)
 
-![image-20261015100824450](C:\Users\dh\AppData\Roaming\Typora\typora-user-images\image-20261015100824450.png)
+![image-20261015100824450](..\Images\image-20261015100824450.png)
 
-![image-20261015100845189](C:\Users\dh\AppData\Roaming\Typora\typora-user-images\image-20261015100845189.png)
+![image-20261015100845189](..\Images\image-20261015100845189.png)
 
 ## 串口通讯
 
@@ -51,27 +51,27 @@ OIS体系结构【应用层、表示层、会话层】=> 五层体系结构【�
     - 偶校验是如果有偶数个1则校验位填0，否则填1。
     - 奇校验是如果有奇数个1则校验位填0，否则填1。
 
-![image-20261015140947258](C:\Users\dh\AppData\Roaming\Typora\typora-user-images\image-20261015140947258.png)
+![image-20261015140947258](..\Images\image-20261015140947258.png)
 
-![image-20261015141349328](C:\Users\dh\AppData\Roaming\Typora\typora-user-images\image-20261015141349328.png)
+![image-20261015141349328](..\Images\image-20261015141349328.png)
 
 ## RS232/485
 
 Recommended Standard推荐标准
 
-![image-20261015141721460](C:\Users\dh\AppData\Roaming\Typora\typora-user-images\image-20261015141721460.png)
+![image-20261015141721460](..\Images\image-20261015141721460.png)
 
 
 
-![image-20261015141813404](C:\Users\dh\AppData\Roaming\Typora\typora-user-images\image-20261015141813404.png)
+![image-20261015141813404](..\Images\image-20261015141813404.png)
 
-![image-20261015141839757](C:\Users\dh\AppData\Roaming\Typora\typora-user-images\image-20261015141839757.png)
+![image-20261015141839757](..\Images\image-20261015141839757.png)
 
-![image-20261016104229106](C:\Users\dh\AppData\Roaming\Typora\typora-user-images\image-20261016104229106.png)
+![image-20261016104229106](..\Images\image-20261016104229106.png)
 
-![image-20261016104426452](C:\Users\dh\AppData\Roaming\Typora\typora-user-images\image-20261016104426452.png)
+![image-20261016104426452](..\Images\image-20261016104426452.png)
 
-![image-20261016104401738](C:\Users\dh\AppData\Roaming\Typora\typora-user-images\image-20261016104401738.png)
+![image-20261016104401738](..\Images\image-20261016104401738.png)
 
 ## Modbus RTU协议
 
@@ -79,38 +79,38 @@ Modbus Remote Terminal Unit【远程终端单元】
 
 主从模式：只允许主站向从站发送请求，从站返回相应的请求，而从站不能主动向主站发送请求
 
-![image-20261015142135522](C:\Users\dh\AppData\Roaming\Typora\typora-user-images\image-20261015142135522.png)
+![image-20261015142135522](..\Images\image-20261015142135522.png)
 
 Modbus寄存器
 
-![image-20261015142420184](C:\Users\dh\AppData\Roaming\Typora\typora-user-images\image-20261015142420184.png)
+![image-20261015142420184](..\Images\image-20261015142420184.png)
 
-![image-20261015142454154](C:\Users\dh\AppData\Roaming\Typora\typora-user-images\image-20261015142454154.png)
+![image-20261015142454154](..\Images\image-20261015142454154.png)
 
-![image-20261015142523011](C:\Users\dh\AppData\Roaming\Typora\typora-user-images\image-20261015142523011.png)
+![image-20261015142523011](..\Images\image-20261015142523011.png)
 
-![image-20261015142606104](C:\Users\dh\AppData\Roaming\Typora\typora-user-images\image-20261015142606104.png)
+![image-20261015142606104](..\Images\image-20261015142606104.png)
 
-![image-20261015142821904](C:\Users\dh\AppData\Roaming\Typora\typora-user-images\image-20261015142821904.png)
+![image-20261015142821904](..\Images\image-20261015142821904.png)
 
-![image-20261015143250612](C:\Users\dh\AppData\Roaming\Typora\typora-user-images\image-20261015143250612.png)
+![image-20261015143250612](..\Images\image-20261015143250612.png)
 
 ## Modbus TCP协议
 
-![image-20261016091312388](C:\Users\dh\AppData\Roaming\Typora\typora-user-images\image-20261016091312388.png)
+![image-20261016091312388](..\Images\image-20261016091312388.png)
 
-![image-20261016091509408](C:\Users\dh\AppData\Roaming\Typora\typora-user-images\image-20261016091509408.png)
+![image-20261016091509408](..\Images\image-20261016091509408.png)
 
 - 事务处理标识符：占2个字节，响应的标识（类似于报文的序号），客户端产生一个新的事务标识符，然后服务器返回相同的事务标识符，以便客户端可以将响应与请求进行匹配
 - 协议标识符：占2个字节，0代表使用的是Modbus协议，因此固定为00 00
 - 长度：占2个字节，长度之后的字节总数
 - 单位标识符：占1个字节，一般设为FF或00（其实就是Modbus RTU中的从站地址）
 
-![image-20261016092424375](C:\Users\dh\AppData\Roaming\Typora\typora-user-images\image-20261016092424375.png)
+![image-20261016092424375](..\Images\image-20261016092424375.png)
 
-  ![image-20261016092512378](C:\Users\dh\AppData\Roaming\Typora\typora-user-images\image-20261016092512378.png)
+  ![image-20261016092512378](..\Images\image-20261016092512378.png)
 
-![image-20261016093339599](C:\Users\dh\AppData\Roaming\Typora\typora-user-images\image-20261016093339599.png)
+![image-20261016093339599](..\Images\image-20261016093339599.png)
 
 ## IIC协议
 
@@ -119,75 +119,75 @@ Inter-Integrated Circuit：集成电路总线
 - SDA：数据线
 - SCL：时钟线
 
-![image-20261016093802040](C:\Users\dh\AppData\Roaming\Typora\typora-user-images\image-20261016093802040.png)
+![image-20261016093802040](..\Images\image-20261016093802040.png)
 
 ### 开漏输出
 
-![image-20261016094008686](C:\Users\dh\AppData\Roaming\Typora\typora-user-images\image-20261016094008686.png)
+![image-20261016094008686](..\Images\image-20261016094008686.png)
 
-![image-20261016094201445](C:\Users\dh\AppData\Roaming\Typora\typora-user-images\image-20261016094201445.png)
+![image-20261016094201445](..\Images\image-20261016094201445.png)
 
-![image-20261016094318904](C:\Users\dh\AppData\Roaming\Typora\typora-user-images\image-20261016094318904.png)
+![image-20261016094318904](..\Images\image-20261016094318904.png)
 
 - 1：时钟线为高电平，数据线为高电平
 - 0：时钟线为高电平，数据线为低电平
 
-![image-20261016094441899](C:\Users\dh\AppData\Roaming\Typora\typora-user-images\image-20261016094441899.png)
+![image-20261016094441899](..\Images\image-20261016094441899.png)
 
 - 空闲状态下，时钟线和数据线都处于高电平
 
-![image-20261016094635684](C:\Users\dh\AppData\Roaming\Typora\typora-user-images\image-20261016094635684.png)
+![image-20261016094635684](..\Images\image-20261016094635684.png)
 
 - 开始通信：主机的数据线由高电平转为低电平
 
-![image-20261016094757894](C:\Users\dh\AppData\Roaming\Typora\typora-user-images\image-20261016094757894.png)
+![image-20261016094757894](..\Images\image-20261016094757894.png)
 
-![image-20261016095729697](C:\Users\dh\AppData\Roaming\Typora\typora-user-images\image-20261016095729697.png)
+![image-20261016095729697](..\Images\image-20261016095729697.png)
 
-![image-20261016095840362](C:\Users\dh\AppData\Roaming\Typora\typora-user-images\image-20261016095840362.png)
+![image-20261016095840362](..\Images\image-20261016095840362.png)
 
-![image-20261016095911104](C:\Users\dh\AppData\Roaming\Typora\typora-user-images\image-20261016095911104.png)
+![image-20261016095911104](..\Images\image-20261016095911104.png)
 
 ## SPI协议
 
 Serial Peripheral Interface：串口外设接口
 
-![image-20261016100146830](C:\Users\dh\AppData\Roaming\Typora\typora-user-images\image-20261016100146830.png)
+![image-20261016100146830](..\Images\image-20261016100146830.png)
 
-![image-20261016100352475](C:\Users\dh\AppData\Roaming\Typora\typora-user-images\image-20261016100352475.png)
+![image-20261016100352475](..\Images\image-20261016100352475.png)
 
-![image-20261016100503213](C:\Users\dh\AppData\Roaming\Typora\typora-user-images\image-20261016100503213.png)
+![image-20261016100503213](..\Images\image-20261016100503213.png)
 
-![image-20261016100512347](C:\Users\dh\AppData\Roaming\Typora\typora-user-images\image-20261016100512347.png)
+![image-20261016100512347](..\Images\image-20261016100512347.png)
 
-![image-20261016100526416](C:\Users\dh\AppData\Roaming\Typora\typora-user-images\image-20261016100526416.png)
+![image-20261016100526416](..\Images\image-20261016100526416.png)
 
-![image-20261016100535178](C:\Users\dh\AppData\Roaming\Typora\typora-user-images\image-20261016100535178.png)
+![image-20261016100535178](..\Images\image-20261016100535178.png)
 
 ## CAN总线
 
 Controller Area Network：控制器局域网【差分传输；使用的是一对双绞线】
 
-![image-20261016101440812](C:\Users\dh\AppData\Roaming\Typora\typora-user-images\image-20261016101440812.png)
+![image-20261016101440812](..\Images\image-20261016101440812.png)
 
 - 逻辑0：当两根线的点位差为2V时
 - 逻辑0：当两根线没有点位差时
 
-![image-20261016101526636](C:\Users\dh\AppData\Roaming\Typora\typora-user-images\image-20261016101526636.png)
+![image-20261016101526636](..\Images\image-20261016101526636.png)
 
-![image-20261016101835546](C:\Users\dh\AppData\Roaming\Typora\typora-user-images\image-20261016101835546.png)
+![image-20261016101835546](..\Images\image-20261016101835546.png)
 
-![image-20261016102451289](C:\Users\dh\AppData\Roaming\Typora\typora-user-images\image-20261016102451289.png)
+![image-20261016102451289](..\Images\image-20261016102451289.png)
 
-![image-20261016102817236](C:\Users\dh\AppData\Roaming\Typora\typora-user-images\image-20261016102817236.png)
+![image-20261016102817236](..\Images\image-20261016102817236.png)
 
-![image-20261016102909617](C:\Users\dh\AppData\Roaming\Typora\typora-user-images\image-20261016102909617.png)
+![image-20261016102909617](..\Images\image-20261016102909617.png)
 
-![image-20261016102933357](C:\Users\dh\AppData\Roaming\Typora\typora-user-images\image-20261016102933357.png)
+![image-20261016102933357](..\Images\image-20261016102933357.png)
 
-![image-20261016103219604](C:\Users\dh\AppData\Roaming\Typora\typora-user-images\image-20261016103219604.png)
+![image-20261016103219604](..\Images\image-20261016103219604.png)
 
-![image-20261016103731700](C:\Users\dh\AppData\Roaming\Typora\typora-user-images\image-20261016103731700.png)
+![image-20261016103731700](..\Images\image-20261016103731700.png)
 
 ## CRC
 
@@ -196,8 +196,8 @@ Cyclic Redundancy Check循环冗余校验【数据校验】
 - 异或：相同为0，不同为1
 - 多项式：最高次项和最低次项的系数必须为1，其余次项的系数可以为0也可以为1
 
-![image-20261016105304446](C:\Users\dh\AppData\Roaming\Typora\typora-user-images\image-20261016105304446.png)
+![image-20261016105304446](..\Images\image-20261016105304446.png)
 
-![image-20261016105345109](C:\Users\dh\AppData\Roaming\Typora\typora-user-images\image-20261016105345109.png)
+![image-20261016105345109](..\Images\image-20261016105345109.png)
 
-![image-20261016105642716](C:\Users\dh\AppData\Roaming\Typora\typora-user-images\image-20261016105642716.png)
+![image-20261016105642716](..\Images\image-20261016105642716.png)
