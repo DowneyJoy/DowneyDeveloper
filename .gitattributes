@@ -1,0 +1,16 @@
+# 默认：文本文件在仓库中用 LF，检出时按平台
+* text=auto
+
+# 明确指定常见文本文件
+*.cs      text eol=lf
+*.md      text eol=lf
+*.json    text eol=lf
+*.yml     text eol=lf
+*.sh      text eol=lf
+
+# Unity 资源/二进制文件不做转换
+*.asset   binary
+*.onnx    binary
+*.png     binary
+*.jpg     binary
+*.meta    text eol=lf
