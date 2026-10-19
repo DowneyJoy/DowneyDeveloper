@@ -1,0 +1,17 @@
+![image-20260824154127189](..\Images\image-20260824154127189.png)
+
+![image-20260824155050946](..\Images\image-20260824155050946.png)
+
+回滚：/rewind 【两下ESC】
+
+后台任务：/tasks   K 结束进程
+
+继续对话：
+
+- claude + /resume
+- claude -c    
+
+MCP工具：/mcp
+
+
+

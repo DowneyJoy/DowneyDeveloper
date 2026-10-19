@@ -1,0 +1,35 @@
+Temperature & Top-p
+
+- 控制随机性和创造力
+  - 高：随机、有创造力
+  - 低：确定、偏向保守
+
+![image-20260824110757299](..\Images\image-20260824110757299.png)
+
+生成分数
+
+![image-20260824111556897](..\Images\image-20260824111556897.png)
+
+转换概率
+
+![image-20260824111444001](..\Images\image-20260824111444001.png)
+
+![image-20260824111704384](..\Images\image-20260824111704384.png)
+
+加权采样
+
+![image-20260824111957331](..\Images\image-20260824111957331.png)
+
+Temperature
+
+![image-20260824112128071](..\Images\image-20260824112128071.png)
+
+![image-20260824135453356](..\Images\image-20260824135453356.png)
+
+Top-p【Top Cumulative Probability 最高累加概率】
+
+![image-20260824135817818](..\Images\image-20260824135817818.png)
+
+![image-20260824135831848](..\Images\image-20260824135831848.png)
+
+![image-20260824135947589](..\Images\image-20260824135947589.png)

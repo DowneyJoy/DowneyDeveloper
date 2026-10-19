@@ -1,0 +1,18 @@
+![image-20260824140338424](C:\Users\dh\AppData\Roaming\Typora\typora-user-images\image-20260824140338424.png)
+
+Tokenizer的实现算法
+
+- Unigram
+- BPE
+
+BPE
+
+****
+
+![image-20260824140550518](C:\Users\dh\AppData\Roaming\Typora\typora-user-images\image-20260824140550518.png)
+
+![image-20260824140603325](C:\Users\dh\AppData\Roaming\Typora\typora-user-images\image-20260824140603325.png)
+
+![image-20260824140945727](C:\Users\dh\AppData\Roaming\Typora\typora-user-images\image-20260824140945727.png)
+
+![image-20260824141216879](C:\Users\dh\AppData\Roaming\Typora\typora-user-images\image-20260824141216879.png)

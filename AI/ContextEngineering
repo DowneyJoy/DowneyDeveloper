@@ -1,0 +1,48 @@
+**Context|模型输入**
+
+- 用户问题
+- 背景信息
+- 相关资料
+- 可用工具列表
+- 工具执行结果
+- 历史对话
+
+**Context Window：模型的输入中最多能包含的Token数量**
+
+- 1 token = 0.75个英文单词/1.5个汉字
+
+三大问题
+
+- 大多数模型的Context Window 非常有限
+- 输入太杂乱会影响模型理解
+- 输入越多，成本越高
+
+**Context Engineering：上下文工程**
+
+- **精心设计给模型的输入内容**
+- 让模型在有限的Context Window里面，尽可能理解得更准确，答得更好，花得更少
+- 不改变模型结构，只改变模型能看到什么
+
+Context Engineering的实现方法
+
+- **保存Context**
+  - context 筛选/总结------内存/硬盘
+- **选择Context**
+  - 从海量的信息中选择出一部分与用户问题最为相关的内容，并且把它们放在模型的Context里面
+  - 静态选择
+    - 所有内容全部放入Context中
+      - 例如：Cursor Rules、CLAUDE.md文件
+  - 动态选择
+    - 选择与用户问题最相关的内容放入Context中
+    - 挑选记忆、挑选工具
+    - RAG
+- **压缩Context**
+  - Context里最占空间的两类数据
+    - 模型输出文本
+    - 工具执行结果
+  - 例如：Cladude4 的context 
+    - 当Context Window的使用量超过95%的时候，Claude Code便会运行一种叫做auto-compact的程序，对以往的context做一个压缩，其实也就是总结下之前的内容，抛弃之前的context
+    - 在Claude.md里指定压缩方案
+- **隔离Context**
+
+![image-20260824103822523](..\Images\image-20260824103822523.png)
