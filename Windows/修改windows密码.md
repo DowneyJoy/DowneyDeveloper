@@ -3,7 +3,7 @@
 - 长按Shift重启电脑
 
 - 选择高级选项---命令行选项
-- 输入 copy C:\windows\sytem32\osk.exe【若复制失败，选择其他盘符继续测试，复制成功后点击y】关闭命令行
+- 输入 copy C:\windows\sytem32\osk.exe【若复制失败，选择其他盘符继续测试例如：copy D:\windows\sytem32\osk.exe，复制成功后点击y】关闭命令行
 - 右下角打开键盘映射：输入netplwiz
 - 选择用户修改密码
 
