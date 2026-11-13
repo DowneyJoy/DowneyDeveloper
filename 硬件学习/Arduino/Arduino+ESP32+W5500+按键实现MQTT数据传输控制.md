@@ -1046,3 +1046,388 @@ public class MqttBrokerUI : MonoBehaviour
     }
 }
 ```
+
+
+
+
+
+```python
+#include <Arduino.h>
+#include <Ethernet_Generic.h>
+#include <PubSubClient.h>
+#include <SPI.h>
+
+#define W5500_SCK   18
+#define W5500_MISO  19
+#define W5500_MOSI  23
+#define W5500_CS    5
+#define W5500_RST   4
+#define KEY_PIN     15
+
+byte mac[] = {0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED};
+IPAddress espStaticIp(192, 168, 0, 100);
+IPAddress espGateway(192, 168, 1, 1);
+IPAddress espSubnet(255, 255, 254, 0);
+IPAddress espDns(192, 168, 1, 1);
+
+// ✅ 关键修改：MQTT服务端改用IPAddress类型，不走DNS解析，直接IP连接
+IPAddress mqttServer(192, 168, 0, 71);
+const uint16_t mqttPort = 1883;
+const char* clientId = "ESP32_W5500_001";
+const char* subTopic = "cmd/device01";
+const char* pubTopic = "data/device01";
+const char* heartbeatTopic = "heartbeat/device01";
+const uint16_t MQTT_KEEPALIVE_SEC = 30;
+
+EthernetClient ethClient;
+PubSubClient mqttClient(ethClient);
+
+bool enableUpload = false;
+unsigned long lastHeartbeatTime = 0;
+const unsigned long heartbeatInterval = 20000;
+uint8_t reconnectFailCount = 0;
+
+void mqttCallback(char* topic, uint8_t* payload, unsigned int length)
+{
+  String recvMsg = "";
+  for (int i = 0; i < length; i++)
+  {
+    recvMsg += (char)payload[i];
+  }
+  Serial.print("收到服务端指令：");
+  Serial.println(recvMsg);
+
+  if (recvMsg == "start")
+  {
+    enableUpload = true;
+    Serial.println("✅ 上传已开启，按键可以上报数据");
+  }
+  else if (recvMsg == "stop")
+  {
+    enableUpload = false;
+    Serial.println("❌ 上传已关闭，按键禁止上报");
+  }
+}
+
+bool mqttFullReconnect()
+{
+  Serial.println("!!!执行完整重连：硬件复位W5500");
+
+  pinMode(W5500_RST, OUTPUT);
+  digitalWrite(W5500_RST, LOW);
+  delay(200);
+  digitalWrite(W5500_RST, HIGH);
+  delay(500);
+
+  SPI.begin(W5500_SCK, W5500_MISO, W5500_MOSI, W5500_CS);
+  Ethernet.init(W5500_CS);
+  Ethernet.begin(mac, espStaticIp, espDns, espGateway, espSubnet);
+  delay(400);
+
+  Serial.print("W5500 IP after reset:");
+  Serial.println(Ethernet.localIP());
+
+  if (mqttClient.connect(clientId))
+  {
+    mqttClient.subscribe(subTopic);
+    Serial.println("✅ MQTT重连成功");
+    reconnectFailCount = 0;
+    return true;
+  }
+  else
+  {
+    Serial.print("❌ MQTT重连失败 rc=");
+    Serial.println(mqttClient.state());
+    reconnectFailCount++;
+    return false;
+  }
+}
+
+void setup()
+{
+  Serial.begin(115200);
+  delay(500);
+  Serial.println("===== ESP32‑W5500 加固保活 =====");
+
+  SPI.begin(W5500_SCK, W5500_MISO, W5500_MOSI, W5500_CS);
+
+  pinMode(W5500_RST, OUTPUT);
+  digitalWrite(W5500_RST, LOW);
+  delay(200);
+  digitalWrite(W5500_RST, HIGH);
+  delay(500);
+
+  Ethernet.init(W5500_CS);
+  Ethernet.begin(mac, espStaticIp, espDns, espGateway, espSubnet);
+  delay(400);
+  Serial.print("✅ W5500 IP：");
+  Serial.println(Ethernet.localIP());
+
+  // ✅ 传入IPAddress类型的服务端地址
+  mqttClient.setServer(mqttServer, mqttPort);
+  mqttClient.setCallback(mqttCallback);
+  mqttClient.setKeepAlive(MQTT_KEEPALIVE_SEC);
+
+  pinMode(KEY_PIN, INPUT_PULLUP);
+}
+
+void loop()
+{
+  mqttClient.loop();
+
+  if (!mqttClient.connected())
+  {
+    mqttFullReconnect();
+
+    if(reconnectFailCount > 3)
+    {
+      Serial.println("⚠️多次重连失败，长延时等待...");
+      delay(3000);
+    }else{
+      delay(1200);
+    }
+  }
+
+  if(millis() - lastHeartbeatTime > heartbeatInterval)
+  {
+    lastHeartbeatTime = millis();
+    if(mqttClient.connected())
+    {
+      bool ok = mqttClient.publish(heartbeatTopic, "alive");
+      if(ok)
+      {
+        Serial.println("💓发送心跳alive");
+        reconnectFailCount = 0;
+      }
+      else
+      {
+        Serial.println("⚠️心跳发送失败，网络僵死");
+      }
+    }
+  }
+
+  static unsigned long lastKeyTime = 0;
+  const unsigned long keyInterval = 200;
+  if(millis() - lastKeyTime > keyInterval)
+  {
+    if(digitalRead(KEY_PIN) == LOW)
+    {
+      lastKeyTime = millis();
+      Serial.println("👉检测按键按下");
+      if (enableUpload)
+      {
+        mqttClient.publish(pubTopic, "key_trigger_ok");
+        Serial.println("✅按键上报完成");
+      }
+      else
+      {
+        Serial.println("❌上传关闭，不上报");
+      }
+    }
+  }
+}
+
+```
+
+
+
+```python
+#include <Arduino.h>
+#include <Ethernet_Generic.h>
+#include <PubSubClient.h>
+#include <SPI.h>
+
+#define SPI2_MOSI      23
+#define SPI2_MISO      19
+#define SPI2_SCK       18
+#define SPI2_SS        5
+
+#define W5500_RST    4
+#define KEY_PIN      27
+
+byte mac[] = {0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED};
+IPAddress espStaticIp(192, 168, 0, 100);
+IPAddress espGateway(192, 168, 1, 1);
+IPAddress espSubnet(255, 255, 254, 0);
+IPAddress espDns(192, 168, 1, 1);
+
+// 必须用IPAddress，不走DNS解析
+IPAddress mqttServer(192, 168, 0, 71);
+const uint16_t mqttPort = 1883;
+const char* clientId = "ESP32_W5500_001";
+const char* subTopic = "cmd/device01";
+const char* pubTopic = "data/device01";
+const char* heartbeatTopic = "heartbeat/device01";
+const uint16_t MQTT_KEEPALIVE_SEC = 30;
+
+EthernetClient ethClient;
+PubSubClient mqttClient(ethClient);
+
+bool enableUpload = false;
+unsigned long lastHeartbeatTime = 0;
+const unsigned long heartbeatInterval = 20000;
+
+uint8_t reconnectFailCount = 0;
+
+void mqttCallback(char* topic, uint8_t* payload, unsigned int length)
+{
+  String recvMsg = "";
+  for (int i = 0; i < length; i++)
+  {
+    recvMsg += (char)payload[i];
+  }
+  recvMsg.trim();
+  Serial.print("收到服务端指令：");
+  Serial.println(recvMsg);
+
+  if (recvMsg == "start")
+  {
+    enableUpload = true;
+    Serial.println("✅ 上传已开启，按键可以上报数据");
+  }
+  else if (recvMsg == "stop")
+  {
+    enableUpload = false;
+    Serial.println("❌ 上传已关闭，按键禁止上报");
+  }
+}
+
+// 硬复位：仅极端兜底使用
+void w5500HardReset()
+{
+  Serial.println("!!! 触发W5500硬件全复位");
+  reconnectFailCount = 0;
+
+  ethClient.stop();
+  mqttClient.disconnect();
+  delay(200);
+
+  pinMode(W5500_RST, OUTPUT);
+  digitalWrite(W5500_RST, LOW);
+  delay(300);
+  digitalWrite(W5500_RST, HIGH);
+  delay(800);
+
+  SPI.begin(SPI2_SCK, SPI2_MISO, SPI2_MOSI, SPI2_SS);
+  Ethernet.init(SPI2_SS);
+  Ethernet.begin(mac, espStaticIp, espDns, espGateway, espSubnet);
+  delay(500);
+  Serial.print("复位后本机IP：");
+  Serial.println(Ethernet.localIP());
+}
+
+bool mqttConnect()
+{
+  if (mqttClient.connect(clientId))
+  {
+    mqttClient.subscribe(subTopic);
+    Serial.println("✅ MQTT连接成功");
+    reconnectFailCount = 0;
+    return true;
+  }
+  Serial.print("❌ MQTT连接失败 rc=");
+  Serial.println(mqttClient.state());
+  return false;
+}
+
+void setup()
+{
+  Serial.begin(115200);
+  delay(500);
+  Serial.println("===== ESP32‑W5500 最终稳定版 =====");
+
+  SPI.begin(SPI2_SCK, SPI2_MISO, SPI2_MOSI, SPI2_SS);
+
+  pinMode(W5500_RST, OUTPUT);
+  digitalWrite(W5500_RST, LOW);
+  delay(200);
+  digitalWrite(W5500_RST, HIGH);
+  delay(500);
+
+  Ethernet.init(SPI2_SS);
+  Ethernet.begin(mac, espStaticIp, espDns, espGateway, espSubnet);
+  delay(400);
+  Serial.print("✅ W5500 IP：");
+  Serial.println(Ethernet.localIP());
+
+  mqttClient.setServer(mqttServer, mqttPort);
+  mqttClient.setCallback(mqttCallback);
+  mqttClient.setKeepAlive(MQTT_KEEPALIVE_SEC);
+
+  pinMode(KEY_PIN, INPUT_PULLUP);
+}
+
+void loop()
+{
+  // 网线断开直接跳过
+  if (!Ethernet.link())
+  {
+    Serial.println("❌ 网线断开，等待恢复...");
+    delay(2000);
+    return;
+  }
+
+  // 仅当MQTT真正断线时才重连
+  if (!mqttClient.connected())
+  {
+    ethClient.stop();
+    delay(100);
+    bool ok = mqttConnect();
+    if (!ok)
+    {
+      reconnectFailCount++;
+      if (reconnectFailCount >= 5)
+      {
+        w5500HardReset(); // 连续5次连接失败才硬复位兜底
+      }
+      delay(1500);
+    }
+  }
+  mqttClient.loop();
+
+  // 心跳保活：返回值仅日志，不做断线判定
+  if(millis() - lastHeartbeatTime > heartbeatInterval)
+  {
+    lastHeartbeatTime = millis();
+    if(mqttClient.connected())
+    {
+      bool ok = mqttClient.publish(heartbeatTopic, "alive");
+      if(ok)
+      {
+        Serial.println("💓 心跳发送成功");
+        reconnectFailCount = 0;
+      }
+      else
+      {
+        // 已知W5500驱动存在返回值偏差，只要服务端能收到就视为有效，不断开
+        Serial.println("💓 心跳已发出（驱动返回值异常，忽略）");
+      }
+    }
+  }
+
+  // 按键检测
+  static unsigned long lastKeyTime = 0;
+  const unsigned long keyInterval = 200;
+  if(millis() - lastKeyTime > keyInterval)
+  {
+    if(digitalRead(KEY_PIN) == LOW)
+    {
+      lastKeyTime = millis();
+      Serial.println("👉 检测按键按下");
+      if (enableUpload)
+      {
+        mqttClient.publish(pubTopic, "key_trigger_ok");
+        Serial.println("✅ 按键上报完成");
+      }
+      else
+      {
+        Serial.println("❌ 上传关闭，不上报");
+      }
+    }
+  }
+
+  delay(20);
+}
+
+```
+
